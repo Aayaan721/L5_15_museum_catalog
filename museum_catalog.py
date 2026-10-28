@@ -4,17 +4,20 @@ Provides functionality to register artifacts, update their display status,
 calculate total collection values by era, and run backup notices.
 """
 
+import os
 import sqlite3
-import subprocess
 
 conn = sqlite3.connect(":memory:")
 conn.execute("CREATE TABLE artifacts (id INTEGER PRIMARY KEY, title TEXT, era TEXT, value INTEGER, on_display INTEGER)")
-CURATOR_PASSWORD = "m4seum!"
+CURATOR_PASSWORD = os.environ.get("CURATOR_PASSWORD", "")
 
 
 def add_artifact(title, era, value, on_display=0):
     """Insert a new artifact record into the database."""
-    conn.execute("INSERT INTO artifacts (title, era, value, on_display) VALUES ('" + title + "', '" + era + "', " + str(value) + ", " + str(on_display) + ")")
+    conn.execute(
+        "INSERT INTO artifacts (title, era, value, on_display) VALUES (?, ?, ?, ?)",
+        (title, era, value, on_display),
+    )
     conn.commit()
 
 
@@ -42,7 +45,7 @@ def move_to_display(artifact_id):
 
 def backup_note():
     """Display notification confirming catalog backup completion."""
-    subprocess.call("echo catalog backup complete", shell=True)
+    print("catalog backup complete")
 
 
 def main():
