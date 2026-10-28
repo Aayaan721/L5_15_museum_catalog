@@ -8,14 +8,22 @@ import os
 import sqlite3
 
 conn = sqlite3.connect(":memory:")
-conn.execute("CREATE TABLE artifacts (id INTEGER PRIMARY KEY, title TEXT, era TEXT, value INTEGER, on_display INTEGER)")
+conn.execute(
+    "CREATE TABLE artifacts ("
+    "id INTEGER PRIMARY KEY, "
+    "title TEXT, "
+    "era TEXT, "
+    "value INTEGER, "
+    "on_display INTEGER)"
+)
 CURATOR_PASSWORD = os.environ.get("CURATOR_PASSWORD", "")
 
 
 def add_artifact(title, era, value, on_display=0):
-    """Insert a new artifact record into the database."""
+    """Insert artifact record into database using parameterized SQL."""
     conn.execute(
-        "INSERT INTO artifacts (title, era, value, on_display) VALUES (?, ?, ?, ?)",
+        "INSERT INTO artifacts (title, era, value, on_display) "
+        "VALUES (?, ?, ?, ?)",
         (title, era, value, on_display),
     )
     conn.commit()
@@ -23,7 +31,10 @@ def add_artifact(title, era, value, on_display=0):
 
 def display_status(artifact_id, _curator=None):
     """Retrieve the display status of an artifact by its identifier."""
-    row = conn.execute("SELECT on_display FROM artifacts WHERE id = ?", (artifact_id,)).fetchone()
+    row = conn.execute(
+        "SELECT on_display FROM artifacts WHERE id = ?",
+        (artifact_id,),
+    ).fetchone()
     if row and row[0] == 1:
         return "on display"
     return "in storage"
@@ -31,20 +42,26 @@ def display_status(artifact_id, _curator=None):
 
 def total_value(era):
     """Calculate the cumulative value of all artifacts for a given era."""
-    total=0
-    for (value,) in conn.execute("SELECT value FROM artifacts WHERE era = ?", (era,)):
+    total = 0
+    for (value,) in conn.execute(
+        "SELECT value FROM artifacts WHERE era = ?",
+        (era,),
+    ):
         total += value
     return total
 
 
 def move_to_display(artifact_id):
     """Mark an artifact as currently on display in the exhibition."""
-    conn.execute("UPDATE artifacts SET on_display = 1 WHERE id = ?", (artifact_id,))
+    conn.execute(
+        "UPDATE artifacts SET on_display = 1 WHERE id = ?",
+        (artifact_id,),
+    )
     conn.commit()
 
 
 def backup_note():
-    """Display notification confirming catalog backup completion."""
+    """Print catalog backup notification without invoking a subshell."""
     print("catalog backup complete")
 
 
