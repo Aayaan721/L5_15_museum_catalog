@@ -1,0 +1,22 @@
+************* Module museum_catalog
+museum_catalog.py:6:0: C0301: Line too long (120/100) (line-too-long)
+museum_catalog.py:11:0: C0301: Line too long (158/100) (line-too-long)
+museum_catalog.py:1:0: C0114: Missing module docstring (missing-module-docstring)
+museum_catalog.py:10:0: C0116: Missing function or method docstring (missing-function-docstring)
+museum_catalog.py:10:0: C0103: Function name "addArtifact" doesn't conform to snake_case naming style (invalid-name)
+museum_catalog.py:15:0: C0116: Missing function or method docstring (missing-function-docstring)
+museum_catalog.py:15:0: C0103: Function name "displayStatus" doesn't conform to snake_case naming style (invalid-name)
+museum_catalog.py:17:4: R1705: Unnecessary "else" after "return", remove the "else" and de-indent the code inside it (no-else-return)
+museum_catalog.py:15:31: W0613: Unused argument 'curator' (unused-argument)
+museum_catalog.py:24:0: C0116: Missing function or method docstring (missing-function-docstring)
+museum_catalog.py:24:0: C0103: Function name "totalValue" doesn't conform to snake_case naming style (invalid-name)
+museum_catalog.py:31:0: C0116: Missing function or method docstring (missing-function-docstring)
+museum_catalog.py:31:0: C0103: Function name "moveToDisplay" doesn't conform to snake_case naming style (invalid-name)
+museum_catalog.py:36:0: C0116: Missing function or method docstring (missing-function-docstring)
+museum_catalog.py:36:0: C0103: Function name "backupNote" doesn't conform to snake_case naming style (invalid-name)
+museum_catalog.py:40:0: C0116: Missing function or method docstring (missing-function-docstring)
+museum_catalog.py:2:0: W0611: Unused import datetime (unused-import)
+
+------------------------------------------------------------------
+Your code has been rated at 4.85/10 (previous run: 4.85/10, +0.00)
+
