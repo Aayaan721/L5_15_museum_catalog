@@ -1,7 +1,7 @@
 # Static Code Analysis Issue Table
 
 | Issue | Type | Line(s) | Description | Fix Approach |
-| --- | --- | --- | --- | --- |
+|:---|:---|:---|:---|:---|
 | SQL Injection in Query Construction (Bandit B608) | Security | 11 | Direct string concatenation was used to construct an SQL `INSERT` statement in `addArtifact`, creating a potential SQL injection vulnerability (CWE-89) if untrusted input is supplied. | Refactored the SQL query to use parameterized query placeholders (`VALUES (?, ?, ?, ?)`) passing a parameter tuple to `conn.execute()`. |
 | Unsafe Shell Command Execution (Bandit B602, B607, B404) | Security | 3, 37 | `subprocess.call` was invoked with `shell=True` and a partial command path (`echo`) to display a backup notice, unnecessarily invoking the system shell (CWE-78) and importing the dangerous `subprocess` module. | Replaced the subprocess shell call with Python's native `print()` function to emit the message directly, and removed `import subprocess`. |
 | Hardcoded Sensitive Credential (Bandit B105) | Security | 7 | A password string was hardcoded directly in the module source (`CURATOR_PASSWORD = "m4seum!"`), violating credential management best practices (CWE-259). | Replaced the static literal with an environment variable lookup using `os.environ.get("CURATOR_PASSWORD", "")`. |
